@@ -8,7 +8,11 @@ class UserUseCase {
         this.userRepository = new UserRepositoryDatabase()
     }
 
-    async create({firstname, lastname, email}: UserCreate): Promise<User> {
-        
+    async create({firstname, lastname, email, password}: UserCreate): Promise<User> {
+        const result = await this.userRepository.create({firstname, lastname, email, password})
+
+        return result
     }
 }
+
+export {UserUseCase}

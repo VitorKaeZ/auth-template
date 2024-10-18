@@ -31,6 +31,7 @@ export class RegisterUserController {
             if (registerUserResponse.isLeft()) {
                 return badRequest(registerUserResponse.value)
             }
+            
             return ok(userData)
         } catch (error) {
             return serverError('internal')

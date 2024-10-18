@@ -23,7 +23,7 @@ export default function authenticateJwt(): preHandlerAsyncHookHandler {
             const decodedToken = verify(authorization, secret);
 
             request.headers['user-id'] = decodedToken.userId;
-            request.headers['user-role'] = decodedToken.roles;
+            // request.headers['user-role'] = decodedToken.roles;
         } catch (error) {
             return reply.code(401).send({ error: "Invalid token!" });
         }

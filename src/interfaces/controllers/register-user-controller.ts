@@ -32,7 +32,7 @@ export class RegisterUserController {
                 return badRequest(registerUserResponse.value)
             }
             
-            return ok(userData)
+            return ok(registerUserResponse.value)
         } catch (error) {
             return serverError('internal')
         }

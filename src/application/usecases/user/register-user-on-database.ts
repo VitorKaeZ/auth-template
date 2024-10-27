@@ -40,7 +40,6 @@ export class RegisterUserOnDatabase implements RegisterUser{
             email : user.email.value,
             firstname : user.firstname.value,
             lastname : user.lastname.value
-
         }
     
         return right(response)

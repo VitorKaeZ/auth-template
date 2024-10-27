@@ -2,9 +2,8 @@
 import { HttpRequest, HttpResponse } from "./ports/http";
 import { badRequest, ok, serverError, unauthorized } from "./helpers/http.helpers";
 import { MissingParamError } from "./errors/missing-params.error";
-import { LoginUser } from "../../../usecases/user/login-user";
-import { LoginUserResponse } from "../../../usecases/user/login-user-response";
-import { UserDataLoginRequest } from "../../../entities/user/user-data";
+import { LoginUser, LoginUserResponse } from "../../domain/repositories/user/login-user";
+import { UserDataLoginRequest } from "../../domain/repositories/user/user-data";
 
 export class LoginUserController {
 

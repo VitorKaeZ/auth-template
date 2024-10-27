@@ -1,4 +1,5 @@
-import { UserData } from '../../entities/user/user-data'
+import { UserData } from './user-data'
+import { RegisterUserResponse } from './register-user'
 
 export interface UserRepository {
   findAllUsers: () => Promise<UserData[]>
@@ -6,3 +7,8 @@ export interface UserRepository {
   add: (user: UserData) => Promise<void>
   exists: (email: string) => Promise<boolean>
 }
+
+export interface UserRepository {
+  create(data: UserData): Promise<RegisterUserResponse>;
+}
+

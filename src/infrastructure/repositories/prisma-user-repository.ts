@@ -1,6 +1,6 @@
 import { PrismaClient } from '@prisma/client';
-import { UserRepository } from '../usecases/ports/user-repository';
-import { UserData } from '../entities/user/user-data';
+import { UserRepository } from '../../domain/repositories/user/user-repository';
+import { UserData } from '../../domain/repositories/user/user-data';
 
 const prisma = new PrismaClient();
 

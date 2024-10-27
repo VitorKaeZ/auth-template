@@ -1,15 +1,15 @@
-import { UserData } from "../../interfaces/user.interface";
-import { User } from "../../entities/user/user";
-import { Either, left, right } from "../../shared/either";
-import { InvalidNameError } from "../../entities/user/errors/invalid.name";
-import { InvalidEmailError } from "../../entities/user/errors/invalid.email";
-import { InvalidPasswordError } from "../../entities/user/errors/invalid.password";
-import { database } from "../../database/prisma-client";
+import { UserData } from "../../../domain/repositories/user/user-data";
+import { User } from "../../../domain/entities/user/user";
+import { Either, left, right } from "../../../shared/either";
+import { InvalidNameError } from "../../../domain/entities/user/errors/invalid.name";
+import { InvalidEmailError } from "../../../domain/entities/user/errors/invalid.email";
+import { InvalidPasswordError } from "../../../domain/entities/user/errors/invalid.password";
+import { database } from "../../../database/prisma-client";
 import bcrypt from "bcryptjs"
-import { RegisterUser } from "./register-user";
-import { RegisterUserResponse } from "./register-user-response";
-import { UserRepository } from "../ports/user-repository";
+import { RegisterUserResponse, RegisterUser } from "../../../domain/repositories/user/register-user";
+import { UserRepository } from "../../../domain/repositories/user/user-repository";
 import { EmailAlreadyExistsError } from "../errors/email-exists-error";
+import { UserDataCreateResponse } from "../../../domain/repositories/user/user-data";
 
 
 export class RegisterUserOnDatabase implements RegisterUser{
@@ -36,7 +36,14 @@ export class RegisterUserOnDatabase implements RegisterUser{
 
         await this.userRepository.add({ firstname: user.firstname.value, lastname: user.lastname.value, email: user.email.value, password: passwordHash })
         
-        return right(userData)
+        const response: UserDataCreateResponse = {
+            email : user.email.value,
+            firstname : user.firstname.value,
+            lastname : user.lastname.value
+
+        }
+    
+        return right(response)
     }
 }
 

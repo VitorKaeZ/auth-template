@@ -1,4 +1,4 @@
-import { Either, left, right } from "../../shared/either"
+import { Either, left, right } from "../../../shared/either"
 import { InvalidEmailError } from "./errors/invalid.email"
 import { InvalidPasswordError } from "./errors/invalid.password"
 

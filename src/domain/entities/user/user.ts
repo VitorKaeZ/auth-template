@@ -1,5 +1,5 @@
-import { UserData } from "../../interfaces/user.interface";
-import { Either, left, right } from "../../shared/either";
+import { UserData } from "../../repositories/user/user-data";
+import { Either, left, right } from "../../../shared/either";
 import { Email } from "./email";
 import { InvalidEmailError } from "./errors/invalid.email";
 import { InvalidNameError } from "./errors/invalid.name";

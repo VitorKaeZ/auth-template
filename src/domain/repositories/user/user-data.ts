@@ -17,3 +17,8 @@ export interface UserDataLoginResponse {
     lastname: string;
     token: string;
 }
+export interface UserDataCreateResponse {
+    email: string;
+    firstname: string;
+    lastname: string;
+}

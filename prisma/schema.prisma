@@ -11,13 +11,25 @@ datasource db {
 }
 
 model User {
-  id        String   @id @default(uuid())
-  email     String   @unique
-  firstname String
-  lastname  String
-  password  String
+  id             String          @id @default(uuid())
+  email          String          @unique
+  firstname      String
+  lastname       String
+  password       String
+  passwordResets PasswordReset[]
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
   @@map("users")
+}
+
+model PasswordReset {
+  id        String   @id @default(uuid())
+  token     String   @unique
+  userId    String
+  createdAt DateTime @default(now())
+  expiresAt DateTime
+
+  user User @relation(fields: [userId], references: [id])
 }

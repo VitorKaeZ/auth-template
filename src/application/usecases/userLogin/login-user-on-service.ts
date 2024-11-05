@@ -1,14 +1,14 @@
 // usecases/login/login-user-on-database.ts
 
-import { UserDataLoginRequest, UserDataLoginResponse } from "../../../domain/repositories/user/user-data";
+import { UserDataLoginRequest, UserDataLoginResponse } from "../../../domain/entities/user/user-data";
 import { Either, left, right } from "../../../shared/either";
 import { InvalidEmailError } from "../../../domain/entities/user/errors/invalid.email";
 import { InvalidPasswordError } from "../../../domain/entities/user/errors/invalid.password";
 import { InvalidCredentialsError } from "../errors/invalid-credentials-error";
-import { UserRepository } from "../../../domain/repositories/user/user-repository";
+import { UserRepository } from "../../../domain/repositories/user/IUserRepository";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
-import { LoginUser } from "../../../domain/repositories/user/login-user";
+import { LoginUser } from "./login-user";
 
 export class LoginUserOnService implements LoginUser {
   private userRepository: UserRepository;
@@ -41,7 +41,7 @@ export class LoginUserOnService implements LoginUser {
 
     const response: UserDataLoginResponse = {
         id: user.id,
-        email:user.email,
+        email: user.email,
         firstname: user.firstname,
         lastname: user.firstname,
         token

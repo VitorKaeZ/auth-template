@@ -1,6 +1,6 @@
 import { RegisterUserController } from "../../interfaces/controllers/register-user-controller"
-import { PrismaUserRepository } from "../../infrastructure/repositories/prisma-user-repository"
-import { RegisterUserOnDatabase } from "../../application/usecases/user/register-user-on-database"
+import { PrismaUserRepository } from "../../infrastructure/repositories/PrismaUserRepository"
+import { RegisterUserOnDatabase } from "../../application/usecases/userRegister/register-user-on-database"
 
 
 export const makeRegisterUserController = (): RegisterUserController => {

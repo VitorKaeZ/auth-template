@@ -1,6 +1,6 @@
 import { PrismaClient } from '@prisma/client';
-import { UserRepository } from '../../domain/repositories/user/user-repository';
-import { UserData } from '../../domain/repositories/user/user-data';
+import { UserRepository } from '../../domain/repositories/user/IUserRepository';
+import { UserData } from '../../domain/entities/user/user-data';
 
 const prisma = new PrismaClient();
 
@@ -43,5 +43,12 @@ export class PrismaUserRepository implements UserRepository {
     // Verifica se o usuário existe pelo e-mail
     const user = await this.findUserByEmail(email);
     return user !== null;
+  }
+
+  async updatePassword(userId: string, newPassword: string): Promise<void> {
+    await prisma.user.update({
+      where: { id: userId },
+      data: { password: newPassword }, // Deve ser hash da senha
+    });
   }
 }

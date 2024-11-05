@@ -1,9 +1,9 @@
 import { FastifyReply, FastifyRequest } from "fastify";
-import { RegisterUserResponse } from "../../domain/repositories/user/register-user";
+import { RegisterUserResponse } from "../../application/usecases/userRegister/register-user";
 import { HttpRequest, HttpResponse } from "./ports/http";
 import { badRequest, ok, serverError } from "./helpers/http.helpers";
 import { MissingParamError } from "./errors/missing-params.error";
-import { RegisterUser } from "../../domain/repositories/user/register-user";
+import { RegisterUser } from "../../application/usecases/userRegister/register-user";
 
 export class RegisterUserController {
 

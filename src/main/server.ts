@@ -19,7 +19,7 @@ const start = async () => {
 
     try {
         await app.listen({ port: Number(process.env.PORT) }).then(() =>{
-            console.log("Server is running!")
+            console.log(`Server is running! http://localhost:${process.env.PORT}/`)
         })
     } catch (error) {
         process.exit(1)

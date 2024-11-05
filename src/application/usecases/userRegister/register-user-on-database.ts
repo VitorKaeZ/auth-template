@@ -1,4 +1,4 @@
-import { UserData } from "../../../domain/repositories/user/user-data";
+import { UserData } from "../../../domain/entities/user/user-data";
 import { User } from "../../../domain/entities/user/user";
 import { Either, left, right } from "../../../shared/either";
 import { InvalidNameError } from "../../../domain/entities/user/errors/invalid.name";
@@ -6,10 +6,10 @@ import { InvalidEmailError } from "../../../domain/entities/user/errors/invalid.
 import { InvalidPasswordError } from "../../../domain/entities/user/errors/invalid.password";
 import { database } from "../../../database/prisma-client";
 import bcrypt from "bcryptjs"
-import { RegisterUserResponse, RegisterUser } from "../../../domain/repositories/user/register-user";
-import { UserRepository } from "../../../domain/repositories/user/user-repository";
+import { RegisterUserResponse, RegisterUser } from "./register-user";
+import { UserRepository } from "../../../domain/repositories/user/IUserRepository";
 import { EmailAlreadyExistsError } from "../errors/email-exists-error";
-import { UserDataCreateResponse } from "../../../domain/repositories/user/user-data";
+import { UserDataCreateResponse } from "../../../domain/entities/user/user-data";
 
 
 export class RegisterUserOnDatabase implements RegisterUser{

@@ -12,19 +12,25 @@
   "devDependencies": {
     "@prisma/client": "^5.21.1",
     "@types/bcryptjs": "^2.4.6",
+    "@types/jest": "^29.5.14",
     "@types/jsonwebtoken": "^9.0.7",
     "@types/node": "^22.7.5",
+    "@types/nodemailer": "^6.4.16",
     "i": "^0.3.7",
+    "jest": "^29.7.0",
     "npm": "^10.9.0",
     "prisma": "^5.21.1",
+    "ts-jest": "^29.2.5",
     "typescript": "^5.6.3"
   },
   "dependencies": {
     "@fastify/cors": "^10.0.1",
     "bcryptjs": "^2.4.3",
+    "date-fns": "^4.1.0",
     "dotenv": "^16.4.5",
     "fastify": "^5.0.0",
     "jsonwebtoken": "^9.0.2",
+    "nodemailer": "^6.9.16",
     "tsx": "^4.19.1"
   }
 }

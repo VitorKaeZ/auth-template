@@ -1,5 +1,5 @@
 import { IPasswordResetRepository } from "../../../domain/repositories/user/IPasswordResetRepository";
-import { UserRepository } from "../../../domain/repositories/user/IUserRepository";
+import { IUserRepository } from "../../../domain/repositories/user/IUserRepository";
 import { Either, left, right } from "../../../shared/either";
 import { InvalidOrExpiredTokenError } from "../errors/invalidOrExpiredTokenError";
 import { PasswordReset, PasswordResetInterface } from "./passwordReset";
@@ -7,10 +7,10 @@ import { isAfter } from "date-fns";
 import bcrypt from "bcryptjs"
 
 export class ResetPassword implements PasswordReset {
-    private userRepository: UserRepository;
+    private userRepository: IUserRepository;
     private passwordResetRepository: IPasswordResetRepository;
 
-  constructor(userRepo: UserRepository, passwordRepo: IPasswordResetRepository) {
+  constructor(userRepo: IUserRepository, passwordRepo: IPasswordResetRepository) {
     this.userRepository = userRepo;
     this.passwordResetRepository = passwordRepo;
   }

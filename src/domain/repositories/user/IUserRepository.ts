@@ -1,7 +1,7 @@
 import { UserData } from '../../entities/user/user-data'
 import { RegisterUserResponse } from '../../../application/usecases/userRegister/register-user'
 
-export interface UserRepository {
+export interface IUserRepository {
   findAllUsers: () => Promise<UserData[]>
   findUserByEmail: (email: string) => Promise<UserData | null>
   add: (user: UserData) => Promise<void>

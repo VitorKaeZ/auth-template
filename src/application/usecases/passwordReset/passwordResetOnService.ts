@@ -16,7 +16,7 @@ export class ResetPassword implements PasswordReset {
   }
    
 
-    async passwordResetOnService ({token, newPassword}:PasswordResetInterface): Promise<Either<InvalidOrExpiredTokenError, PasswordResetInterface>>{
+    async passwordResetOnService ({token, newPassword}:PasswordResetInterface): Promise<Either<InvalidOrExpiredTokenError, {message: string}>>{
         const resetRequest = await this.passwordResetRepository.findByToken(token)
 
         if (!resetRequest || isAfter(new Date(), resetRequest.expiresAt)) {
@@ -30,6 +30,6 @@ export class ResetPassword implements PasswordReset {
         await this.passwordResetRepository.deleteToken(token)
 
 
-        return right({token, newPassword})
+        return right({ message: 'Password changed successfully!' })
     }
 }

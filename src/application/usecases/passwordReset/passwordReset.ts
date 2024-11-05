@@ -9,7 +9,7 @@ export interface PasswordResetInterface {
     newPassword: string
 }
 
-export type PasswordResetResponse = Either<InvalidEmailError | InvalidPasswordError, PasswordResetInterface>
+export type PasswordResetResponse = Either<InvalidEmailError | InvalidPasswordError, { message: string }>
 
 
 export interface PasswordReset {

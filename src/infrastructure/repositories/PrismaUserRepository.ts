@@ -1,10 +1,10 @@
 import { PrismaClient } from '@prisma/client';
-import { UserRepository } from '../../domain/repositories/user/IUserRepository';
+import { IUserRepository } from '../../domain/repositories/user/IUserRepository';
 import { UserData } from '../../domain/entities/user/user-data';
 
 const prisma = new PrismaClient();
 
-export class PrismaUserRepository implements UserRepository {
+export class PrismaUserRepository implements IUserRepository {
   async findAllUsers(): Promise<UserData[]> {
     // Busca todos os usuários no banco de dados
     return await prisma.user.findMany();

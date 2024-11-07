@@ -2,7 +2,6 @@ import { IUserRepository } from '../../../domain/repositories/user/IUserReposito
 
 import bcrypt from 'bcryptjs'
 import { RegisterUserOnDatabase } from './register-user-on-database'
-import { register } from 'module'
 import { UserData } from '../../../domain/entities/user/user-data'
 import { EmailAlreadyExistsError } from '../errors/email-exists-error'
 import { InvalidNameError } from '../../../domain/entities/user/errors/invalid.name'

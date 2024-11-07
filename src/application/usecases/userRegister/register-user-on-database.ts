@@ -7,14 +7,14 @@ import { InvalidPasswordError } from "../../../domain/entities/user/errors/inval
 import { database } from "../../../database/prisma-client";
 import bcrypt from "bcryptjs"
 import { RegisterUserResponse, RegisterUser } from "./register-user";
-import { UserRepository } from "../../../domain/repositories/user/IUserRepository";
+import { IUserRepository } from "../../../domain/repositories/user/IUserRepository";
 import { EmailAlreadyExistsError } from "../errors/email-exists-error";
 import { UserDataCreateResponse } from "../../../domain/entities/user/user-data";
 
 
 export class RegisterUserOnDatabase implements RegisterUser{
-    private userRepository: UserRepository
-    constructor(userRepo: UserRepository){
+    private userRepository: IUserRepository
+    constructor(userRepo: IUserRepository){
         this.userRepository = userRepo
     }
 

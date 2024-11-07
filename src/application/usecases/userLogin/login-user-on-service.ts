@@ -5,15 +5,15 @@ import { Either, left, right } from "../../../shared/either";
 import { InvalidEmailError } from "../../../domain/entities/user/errors/invalid.email";
 import { InvalidPasswordError } from "../../../domain/entities/user/errors/invalid.password";
 import { InvalidCredentialsError } from "../errors/invalid-credentials-error";
-import { UserRepository } from "../../../domain/repositories/user/IUserRepository";
+import { IUserRepository } from "../../../domain/repositories/user/IUserRepository";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import { LoginUser } from "./login-user";
 
 export class LoginUserOnService implements LoginUser {
-  private userRepository: UserRepository;
+  private userRepository: IUserRepository;
 
-  constructor(userRepo: UserRepository) {
+  constructor(userRepo: IUserRepository) {
     this.userRepository = userRepo;
   }
 

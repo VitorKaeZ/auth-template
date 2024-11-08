@@ -1,5 +1,5 @@
 import { IPasswordResetRepository } from "../../../domain/repositories/user/IPasswordResetRepository";
-import { UserRepository } from "../../../domain/repositories/user/IUserRepository";
+import { IUserRepository } from "../../../domain/repositories/user/IUserRepository";
 import { Either, left, right } from "../../../shared/either";
 import { InvalidOrExpiredTokenError } from "../errors/invalidOrExpiredTokenError";
 import { PasswordReset, PasswordResetInterface } from "./passwordReset";
@@ -10,11 +10,11 @@ import { RequestPasswordResetInterface } from "./requestPasswordReset";
 import crypto from "crypto";
 
 export class RequestPasswordReset implements RequestPasswordReset {
-    private userRepository: UserRepository;
+    private userRepository: IUserRepository;
     private passwordResetRepository: IPasswordResetRepository;
     private emailService: IEmailService;
 
-  constructor(userRepo: UserRepository, passwordRepo: IPasswordResetRepository, emailService: IEmailService) {
+  constructor(userRepo: IUserRepository, passwordRepo: IPasswordResetRepository, emailService: IEmailService) {
     this.userRepository = userRepo;
     this.passwordResetRepository = passwordRepo;
     this.emailService = emailService;

@@ -1,0 +1,52 @@
+import { IPasswordResetRepository } from "../../../domain/repositories/user/IPasswordResetRepository";
+import { IUserRepository } from "../../../domain/repositories/user/IUserRepository";
+import { Either, left, right } from "../../../shared/either";
+import { InvalidOrExpiredTokenError } from "../errors/invalidOrExpiredTokenError";
+import { PasswordReset, PasswordResetInterface } from "./passwordReset";
+import { isAfter } from "date-fns";
+import bcrypt from "bcryptjs"
+import { ResetPassword } from "./passwordResetOnService";
+
+
+jest.mock('bcryptjs');
+
+const userRepositoryMock: jest.Mocked<IUserRepository> = {
+  exists: jest.fn(),
+  add: jest.fn(),
+  findAllUsers: jest.fn(),
+  findUserByEmail: jest.fn(),
+  updatePassword: jest.fn(),
+} as any;
+
+const passwordResetRepositoryMock: jest.Mocked<IPasswordResetRepository> = {
+  createToken: jest.fn(),
+  findByToken: jest.fn(),
+  deleteToken: jest.fn(),
+} as any;
+
+
+describe('PasswordReset UseCase', () => {
+    let passwordReset: ResetPassword
+    
+    beforeEach(() => {
+      passwordReset = new ResetPassword(
+        userRepositoryMock,
+        passwordResetRepositoryMock
+      )
+    })
+
+    it('should return error if token is invalid', async () => {
+      
+
+      passwordResetRepositoryMock.findByToken.mockResolvedValue(null)
+
+      const result = await passwordReset.passwordResetOnService({
+        token: 'invalid-token',
+        newPassword: 'newPassword123'
+      })
+
+      expect(result.isLeft()).toBe(true);
+      expect(result.value).toBeInstanceOf(InvalidOrExpiredTokenError);
+
+    })
+})

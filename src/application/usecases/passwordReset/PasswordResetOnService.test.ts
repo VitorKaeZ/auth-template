@@ -9,6 +9,10 @@ import { ResetPassword } from "./passwordResetOnService";
 
 
 jest.mock('bcryptjs');
+jest.mock('date-fns', () => ({
+  isAfter: jest.fn(),
+}));
+
 
 const userRepositoryMock: jest.Mocked<IUserRepository> = {
   exists: jest.fn(),
@@ -45,6 +49,26 @@ describe('PasswordReset UseCase', () => {
         newPassword: 'newPassword123'
       })
 
+      expect(result.isLeft()).toBe(true);
+      expect(result.value).toBeInstanceOf(InvalidOrExpiredTokenError);
+
+    })
+
+    it('should return error if token has expired', async () => {
+      const mockResetRequest = {
+        userId: 'user123',
+        expiresAt: new Date('2023-01-01T00:00:00Z'),
+      };
+
+      passwordResetRepositoryMock.findByToken.mockResolvedValue(mockResetRequest);
+      (isAfter as jest.Mock).mockReturnValue(true)
+
+      const result = await passwordReset.passwordResetOnService({
+        token: 'expired-token',
+        newPassword: 'newPassword123'
+      })
+
+      expect(isAfter).toHaveBeenCalledWith(new Date(), mockResetRequest.expiresAt)
       expect(result.isLeft()).toBe(true);
       expect(result.value).toBeInstanceOf(InvalidOrExpiredTokenError);
 

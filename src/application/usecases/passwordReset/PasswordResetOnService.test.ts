@@ -73,4 +73,35 @@ describe('PasswordReset UseCase', () => {
       expect(result.value).toBeInstanceOf(InvalidOrExpiredTokenError);
 
     })
+
+    it('should reset password successfully if token is valid', async () => {
+      const mockResetRequest = {
+        userId: 'user123',
+        expiresAt: new Date('2024-12-31T23:59:59Z'),
+      };
+
+      passwordResetRepositoryMock.findByToken.mockResolvedValue(mockResetRequest);
+      (isAfter as jest.Mock).mockReturnValue(false);
+
+      const passwordHash = 'hashedNewPassword';
+      (bcrypt.genSalt as jest.Mock).mockResolvedValue('salt');
+      (bcrypt.hash as jest.Mock).mockResolvedValue(passwordHash);
+
+
+      const result = await passwordReset.passwordResetOnService({
+        token: 'valid-token',
+        newPassword: 'newPassword123'
+      })
+
+      expect(passwordResetRepositoryMock.findByToken).toHaveBeenCalledWith('valid-token');
+      expect(bcrypt.genSalt).toHaveBeenCalledWith(12);
+      expect(bcrypt.hash).toHaveBeenCalledWith('newPassword123', 'salt')
+      expect(userRepositoryMock.updatePassword).toHaveBeenCalledWith('user123', passwordHash)
+      expect(passwordResetRepositoryMock.deleteToken).toHaveBeenCalledWith('valid-token')
+      expect(result.isRight()).toBe(true);
+      expect(result.value).toEqual({ message: 'Password changed successfully!' });
+
+
+
+    })
 })

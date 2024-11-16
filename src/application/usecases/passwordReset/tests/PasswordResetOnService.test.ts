@@ -1,11 +1,9 @@
-import { IPasswordResetRepository } from "../../../domain/repositories/user/IPasswordResetRepository";
-import { IUserRepository } from "../../../domain/repositories/user/IUserRepository";
-import { Either, left, right } from "../../../shared/either";
-import { InvalidOrExpiredTokenError } from "../errors/invalidOrExpiredTokenError";
-import { PasswordReset, PasswordResetInterface } from "./passwordReset";
+import { IPasswordResetRepository } from "../../../../domain/repositories/user/IPasswordResetRepository";
+import { IUserRepository } from "../../../../domain/repositories/user/IUserRepository";
+import { InvalidOrExpiredTokenError } from "../../errors/invalidOrExpiredTokenError";
 import { isAfter } from "date-fns";
 import bcrypt from "bcryptjs"
-import { ResetPassword } from "./passwordResetOnService";
+import { ResetPassword } from "../passwordResetOnService";
 
 
 jest.mock('bcryptjs');

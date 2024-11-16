@@ -1,7 +1,7 @@
-import { UserData, UserDataLoginRequest } from "../../../domain/entities/user/user-data"
-import { IUserRepository } from "../../../domain/repositories/user/IUserRepository"
-import { InvalidCredentialsError } from "../errors/invalid-credentials-error";
-import { LoginUserOnService } from "./login-user-on-service"
+import { UserData, UserDataLoginRequest } from "../../../../domain/entities/user/user-data"
+import { IUserRepository } from "../../../../domain/repositories/user/IUserRepository"
+import { InvalidCredentialsError } from "../../errors/invalid-credentials-error";
+import { LoginUserOnService } from "../login-user-on-service"
 import bcrypt from 'bcryptjs';
 
 jest.mock('bcryptjs');

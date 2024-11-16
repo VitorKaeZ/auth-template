@@ -1,10 +1,10 @@
 import { addHours } from "date-fns"
-import { UserData } from "../../../domain/entities/user/user-data"
-import { IPasswordResetRepository } from "../../../domain/repositories/user/IPasswordResetRepository"
-import { IUserRepository } from "../../../domain/repositories/user/IUserRepository"
-import { IEmailService } from "../../services/IEmailService"
-import { InvalidOrExpiredTokenError } from "../errors/invalidOrExpiredTokenError"
-import { RequestPasswordReset } from "./requestPasswordResetOnService"
+import { UserData } from "../../../../domain/entities/user/user-data"
+import { IPasswordResetRepository } from "../../../../domain/repositories/user/IPasswordResetRepository"
+import { IUserRepository } from "../../../../domain/repositories/user/IUserRepository"
+import { IEmailService } from "../../../services/IEmailService"
+import { InvalidOrExpiredTokenError } from "../../errors/invalidOrExpiredTokenError"
+import { RequestPasswordReset } from "../requestPasswordResetOnService"
 import crypto from "crypto";
 
 jest.mock('crypto');

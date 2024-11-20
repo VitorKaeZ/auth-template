@@ -21,7 +21,7 @@ export class LoginUserOnService implements LoginUser {
     // Verifica se o email é válido
     const user = await this.userRepository.findUserByEmail(userData.email);
     
-    if (!user) {
+    if (!user || !user.password) {
       return left(new InvalidCredentialsError());
     }
 

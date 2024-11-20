@@ -1,6 +1,6 @@
-import { PrismaClient } from '@prisma/client';
+import { PrismaClient, User } from '@prisma/client';
 import { IUserRepository } from '../../domain/repositories/user/IUserRepository';
-import { UserData } from '../../domain/entities/user/user-data';
+import { OAuthUserData, OAuthUserDataResponse, UserData, UserDataLoginResponse } from '../../domain/entities/user/user-data';
 
 const prisma = new PrismaClient();
 
@@ -33,7 +33,7 @@ export class PrismaUserRepository implements IUserRepository {
     const exists = await this.exists(user.email);
     if (!exists) {
       // Adiciona o usuário se ele não existir
-      await prisma.user.create({
+      const userResponse = await prisma.user.create({
         data: user,
       });
     }
@@ -51,4 +51,23 @@ export class PrismaUserRepository implements IUserRepository {
       data: { password: newPassword }, // Deve ser hash da senha
     });
   }
+
+  async findUserByGoogleId(googleId: string): Promise<OAuthUserDataResponse | null> {
+    const user = await prisma.user.findUnique({
+      where: { googleId },
+    });
+
+    if (!user) {
+      return null;
+    }
+
+    return {
+      id: user.id,
+      googleId: user.googleId,
+      email: user.email,
+      firstname: user.firstname,
+      lastname: user.lastname,
+    };
+  }
+
 }

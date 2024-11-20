@@ -3,7 +3,7 @@ import { adaptRoute } from "../adapters/fastify.route.adapter";
 import { makeRegisterUserController } from "../factories/register";
 import authenticateJwt from "../../middlewares/auth-middleware";
 import { makeLoginUserController } from "../factories/login";
-import { makePasswordResetController } from "../factories/PasswordReset";
+import { makePasswordResetController } from "../factories/passwordReset";
 import { makeRequestPasswordResetController } from "../factories/requestPasswordReset";
 
 export async function userRoutes(fastify: FastifyInstance, options: FastifyPluginOptions) {

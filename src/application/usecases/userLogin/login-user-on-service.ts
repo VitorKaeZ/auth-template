@@ -18,21 +18,18 @@ export class LoginUserOnService implements LoginUser {
   }
 
   async loginUserOnService(userData: UserDataLoginRequest): Promise<Either<InvalidCredentialsError, UserDataLoginResponse>> {
-    // Verifica se o email é válido
     const user = await this.userRepository.findUserByEmail(userData.email);
     
     if (!user || !user.password) {
       return left(new InvalidCredentialsError());
     }
 
-    // Verifica se a senha está correta
     const passwordMatch = await bcrypt.compare(userData.password, user.password);
 
     if (!passwordMatch) {
       return left(new InvalidCredentialsError());
     }
 
-    // Gera o token JWT (substitua 'your-secret-key' pelo seu segredo JWT)
     const jwtToken = "" + process.env.JWT_TOKEN
 
     const token = jwt.sign({ userId: user.id, email: user.email }, jwtToken, {

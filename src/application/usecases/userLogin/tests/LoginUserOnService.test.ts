@@ -18,6 +18,7 @@ describe('LoginUserOnService UseCase', () => {
             add: jest.fn(),
             findAllUsers: jest.fn(),
             findUserByEmail: jest.fn(),
+            findUserByGoogleId: jest.fn(),
             updatePassword: jest.fn(),
         }
 

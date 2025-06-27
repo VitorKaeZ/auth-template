@@ -29,8 +29,9 @@ export interface OAuthUserData {
     email: string;
     firstname: string;
     lastname: string;
-    picture: string;
-    token: string;
+    picture?: string;
+    token?: string;
+    googleId?: string;
   }
 
   export interface OAuthUserDataResponse {

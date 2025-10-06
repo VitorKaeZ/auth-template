@@ -15,7 +15,7 @@ describe('LoginUserOnService UseCase', () => {
     beforeEach(() => {
         userRepository = {
             exists: jest.fn(),
-            add: jest.fn(),
+            create: jest.fn(),
             findAllUsers: jest.fn(),
             findUserByEmail: jest.fn(),
             findUserByGoogleId: jest.fn(),
@@ -26,11 +26,13 @@ describe('LoginUserOnService UseCase', () => {
     })
 
     it('must log in successfully with valid email and password', async () => {
-        const validUser: UserData = {
+        const validUser: any = {
+            id: '123',
             firstname: 'John',
             lastname: 'Doe',
             email: 'john.doe@example.com',
-            password: 'hashed_password', // A senha no banco de dados estaria criptografada
+            password: 'hashed_password',
+            roles: [{ role: { name: 'USER' } }] // Add this roles property
           };
 
         userRepository.findUserByEmail.mockResolvedValue(validUser);

@@ -10,18 +10,19 @@ const makeOAuthServiceMock = (): jest.Mocked<IOAuthService> => ({
 
 const makeUserRepositoryMock = (): jest.Mocked<IUserRepository> => ({
   findUserByGoogleId: jest.fn(),
-  add: jest.fn(),
+  create: jest.fn(),
   exists: jest.fn(),
   findAllUsers: jest.fn(),
   findUserByEmail: jest.fn(),
   updatePassword: jest.fn(),
 });
 
-const mockUserData = {
+const mockUserData: any = {
   id: "google-user-id",
   email: "test@example.com",
   firstname: "Test",
   lastname: "User",
+  roles: [{ role: { name: 'USER' } }],
 };
 
 describe('LoginUserOAuthOnService UseCase', () => {
@@ -39,7 +40,7 @@ describe('LoginUserOAuthOnService UseCase', () => {
 
     expect(result.isRight()).toBe(true);
     expect(result.value).toEqual(mockUserData);
-    expect(userRepositoryMock.add).not.toHaveBeenCalled();
+    expect(userRepositoryMock.create).not.toHaveBeenCalled();
    })
 
    it("should return new user if user doesn't exist", async () => {
@@ -55,7 +56,7 @@ describe('LoginUserOAuthOnService UseCase', () => {
     const result = await useCase.execute("valid-token");
 
     expect(result.isRight()).toBe(true);
-    expect(userRepositoryMock.add).toHaveBeenCalledWith({
+    expect(userRepositoryMock.create).toHaveBeenCalledWith({
       googleId: mockUserData.id,
       email: mockUserData.email,
       firstname: mockUserData.firstname,

@@ -1,31 +1,51 @@
-import { FastifyRequest, FastifyReply, preHandlerAsyncHookHandler } from 'fastify';
+import { FastifyRequest, FastifyReply } from 'fastify';
 import { verify } from 'jsonwebtoken';
-import "dotenv/config"
+import 'dotenv/config';
 
-export default function authenticateJwt(): preHandlerAsyncHookHandler {
-    return async (request: FastifyRequest, reply: FastifyReply) => {
-        const authorization = request.headers.authorization;
+// Extend the FastifyRequest interface to include the user property
+declare module 'fastify' {
+  interface FastifyRequest {
+    user?: { id: string; roles: string[] };
+  }
+}
 
-        if (!authorization) {
-            return reply.code(401).send({ error: "Token is missing!" });
-        }
+export default function authenticateJwt(requiredRole?: string) {
+  return async (request: FastifyRequest, reply: FastifyReply) => {
+    const authorization = request.headers.authorization;
 
-        // const [,token] = authorization.split(' ');
-        // console.log(token)
-        try {
+    if (!authorization) {
+      return reply.code(401).send({ error: 'Token is missing!' });
+    }
 
-            const secret = process.env.JWT_TOKEN;
+    // Robust token extraction
+    let token: string;
+    if (authorization.startsWith('Bearer ')) {
+      token = authorization.substring(7);
+    } else {
+      token = authorization;
+    }
 
-            if (!secret) {
-            throw new Error('JWT secret is not defined');
-            }
-            
-            const decodedToken = verify(authorization, secret);
+    if (!token) {
+        return reply.code(401).send({ error: "Token is malformed!" });
+    }
 
-            request.headers['user-id'] = decodedToken.userId;
-            // request.headers['user-role'] = decodedToken.roles;
-        } catch (error) {
-            return reply.code(401).send({ error: "Invalid token!" });
-        }
-    };
+    try {
+      const secret = process.env.JWT_TOKEN;
+
+      if (!secret) {
+        throw new Error('JWT secret is not defined');
+      }
+
+      const decodedToken = verify(token, secret) as { userId: string; roles: string[] };
+
+      if (requiredRole && !decodedToken.roles.includes(requiredRole)) {
+        return reply.code(403).send({ error: 'Forbidden: Insufficient permissions' });
+      }
+
+      request.user = { id: decodedToken.userId, roles: decodedToken.roles };
+
+    } catch (error) {
+      return reply.code(401).send({ error: 'Invalid token!', details: error.message });
+    }
+  };
 }

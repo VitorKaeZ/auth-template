@@ -30,7 +30,7 @@ export class AuthenticateUserWithGoogle implements LoginUserWithOAuth {
       let user = await this.userRepository.findUserByGoogleId(userInfo.id);
 
       if (!user) {
-        await this.userRepository.add({
+        await this.userRepository.create({
           googleId: userInfo.id,
           email: userInfo.email || "",
           firstname: userInfo.firstname || "",

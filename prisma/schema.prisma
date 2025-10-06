@@ -3,7 +3,7 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
+  provider = "sqlite"
   url      = env("DATABASE_URL")
 }
 
@@ -17,8 +17,31 @@ model User {
   createdAt      DateTime        @default(now())
   updatedAt      DateTime        @updatedAt
   passwordResets PasswordReset[]
+  roles          User_Role[] 
 
   @@map("users")
+}
+
+model Role {
+  id    String      @id @default(uuid())
+  name  String      @unique // Ex: "ADMIN", "USER"
+  users User_Role[]
+
+  @@map("roles")
+}
+
+model User_Role {
+  user_id String
+  role_id String
+
+  user User @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  role Role @relation(fields: [role_id], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@id([user_id, role_id]) 
+  @@map("user_roles")
 }
 
 model PasswordReset {

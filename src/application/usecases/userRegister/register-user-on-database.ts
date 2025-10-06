@@ -31,10 +31,23 @@ export class RegisterUserOnDatabase implements RegisterUser{
             return left(new EmailAlreadyExistsError());
         }
 
+        const userCount = await this.userRepository.count();
+
         const salt = await bcrypt.genSalt(12)
         const passwordHash = await bcrypt.hash(user.password.value, salt)
 
-        await this.userRepository.add({ firstname: user.firstname.value, lastname: user.lastname.value, email: user.email.value, password: passwordHash })
+        const userDataWithHashedPassword = {
+            firstname: user.firstname.value,
+            lastname: user.lastname.value,
+            email: user.email.value,
+            password: passwordHash
+        };
+
+        if (userCount === 0) {
+            await this.userRepository.create(userDataWithHashedPassword, 'ADMIN');
+        } else {
+            await this.userRepository.create(userDataWithHashedPassword);
+        }
         
         const response: UserDataCreateResponse = {
             email : user.email.value,

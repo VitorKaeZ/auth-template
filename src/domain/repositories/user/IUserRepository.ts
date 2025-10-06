@@ -3,15 +3,12 @@ import { RegisterUserResponse } from '../../../application/usecases/userRegister
 import { User } from '@prisma/client'
 
 export interface IUserRepository {
-  findAllUsers: () => Promise<UserData[]>
+  count(): Promise<number>;
+  findAllUsers: () => Promise<UserData[]>;
   findUserByEmail: (email: string) => Promise<UserData | null>
-  add: (user: UserData) => Promise<void>
+  create: (user: UserData, roleName?: string) => Promise<User>;
   exists: (email: string) => Promise<boolean>
   updatePassword(userId: string, newPassword: string): Promise<void>;
   findUserByGoogleId(googleId: string): Promise<OAuthUserDataResponse | null>;
-}
-
-export interface UserRepository2 {
-  create(data: UserData): Promise<RegisterUserResponse>;
 }
 

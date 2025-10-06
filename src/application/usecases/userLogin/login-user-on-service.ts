@@ -32,7 +32,9 @@ export class LoginUserOnService implements LoginUser {
 
     const jwtToken = "" + process.env.JWT_TOKEN
 
-    const token = jwt.sign({ userId: user.id, email: user.email }, jwtToken, {
+    const roleNames = user.roles.map(userRole => userRole.role.name);
+
+    const token = jwt.sign({ userId: user.id, email: user.email, roles: roleNames }, jwtToken, {
       expiresIn: "1h",
     });
 

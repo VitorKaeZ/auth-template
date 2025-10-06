@@ -5,6 +5,10 @@ import { OAuthUserData, OAuthUserDataResponse, UserData, UserDataLoginResponse }
 const prisma = new PrismaClient();
 
 export class PrismaUserRepository implements IUserRepository {
+  async count(): Promise<number> {
+    return await prisma.user.count();
+  }
+
   async findAllUsers(): Promise<UserData[]> {
     // Busca todos os usuários no banco de dados
     return await prisma.user.findMany();
@@ -16,27 +20,48 @@ export class PrismaUserRepository implements IUserRepository {
       where: {
         email: email,
       },
-      select: {
-        id: true,
-        firstname: true,
-        lastname: true,
-        email: true,
-        password: true,
+      include: {
+        roles: {
+          include: {
+            role: true,
+          },
+        },
       },
     });
     
     return result
   }
 
-  async add(user: UserData): Promise<void> {
-    // Verifica se o usuário já existe pelo e-mail
-    const exists = await this.exists(user.email);
-    if (!exists) {
-      // Adiciona o usuário se ele não existir
-      const userResponse = await prisma.user.create({
-        data: user,
-      });
+  async create(user: UserData, roleName: string = 'USER'): Promise<User> {
+    const roleToConnect = await prisma.role.findUnique({ where: { name: roleName } });
+    if (!roleToConnect) {
+      throw new Error(`Role ${roleName} not found`);
     }
+
+    const newUser = await prisma.user.create({
+      data: {
+        ...user,
+        roles: {
+          create: [
+            {
+              role: {
+                connect: {
+                  id: roleToConnect.id,
+                },
+              },
+            },
+          ],
+        },
+      },
+      include: {
+        roles: {
+          include: {
+            role: true,
+          },
+        },
+      },
+    });
+    return newUser;
   }
 
   async exists(email: string): Promise<boolean> {

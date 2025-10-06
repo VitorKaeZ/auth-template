@@ -1,6 +1,6 @@
 import { FastifyInstance, FastifyPluginOptions, FastifyReply, FastifyRequest } from "fastify";
 import { makeLoginUserWithOAuthController } from "../factories/login-with-oauth";
-import { AuthenticateUserWithGoogle } from "../../application/usecases/userLogin/login-user-with-oauth-on-service";
+import { AuthenticateUserWithGoogle } from "../../../application/usecases/userLogin/login-user-with-oauth-on-service";
 import { adaptRoute } from "../adapters/fastify.route.adapter";
 
 export async function oAuthRoutes(fastify: FastifyInstance, options: FastifyPluginOptions) {

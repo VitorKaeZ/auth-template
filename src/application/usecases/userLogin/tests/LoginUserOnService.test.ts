@@ -1,4 +1,5 @@
-import { UserData, UserDataLoginRequest } from "../../../../domain/entities/user/user-data"
+import { UserDTO } from "../../../dtos/user/user.dto";
+import { LoginRequestDTO } from "../../../dtos/auth/login.dto";
 import { IUserRepository } from "../../../../domain/repositories/user/IUserRepository"
 import { InvalidCredentialsError } from "../../errors/invalid-credentials-error";
 import { LoginUserOnService } from "../login-user-on-service"
@@ -62,7 +63,7 @@ describe('LoginUserOnService UseCase', () => {
     })
 
     it('should return error if password is invalid', async () => {
-        const validUser: UserData = {
+        const validUser: UserDTO = {
             firstname: 'John',
             lastname: 'Doe',
             email: 'john.doe@example.com',

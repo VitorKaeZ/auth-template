@@ -3,7 +3,7 @@ import { HttpRequest, HttpResponse } from "./ports/http";
 import { badRequest, ok, serverError, unauthorized } from "./helpers/http.helpers";
 import { MissingParamError } from "./errors/missing-params.error";
 import { LoginUser, LoginUserResponse } from "../../application/usecases/userLogin/login-user";
-import { UserDataLoginRequest } from "../../domain/entities/user/user-data";
+import { LoginRequestDTO } from "../../application/dtos/auth/login.dto";
 
 export class LoginUserController {
 
@@ -21,7 +21,7 @@ export class LoginUserController {
                 return badRequest(new MissingParamError(field));
             }
 
-            const userData: UserDataLoginRequest = { email : httpRequest.body.email, password : httpRequest.body.password}
+            const userData: LoginRequestDTO = { email : httpRequest.body.email, password : httpRequest.body.password}
             const loginUserResponse: LoginUserResponse = await this.loginUser.loginUserOnService(userData)
 
             if (loginUserResponse.isLeft()) {

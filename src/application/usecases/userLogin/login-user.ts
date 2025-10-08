@@ -1,12 +1,9 @@
-import { UserDataLoginRequest } from '../../../domain/entities/user/user-data'
-import { Either } from '../../../shared/either'
-import { InvalidEmailError } from '../../../domain/entities/user/errors/invalid.email'
-import { UserDataLoginResponse } from '../../../domain/entities/user/user-data'
+import { LoginRequestDTO, LoginResponseDTO } from '../../dtos/auth/login.dto'
 import { InvalidPasswordError } from '../../../domain/entities/user/errors/invalid.password'
 
-export type LoginUserResponse = Either<InvalidEmailError | InvalidPasswordError, UserDataLoginResponse>
+export type LoginUserResponse = Either<InvalidEmailError | InvalidPasswordError, LoginResponseDTO>
 
 
 export interface LoginUser {
-    loginUserOnService: (user: UserDataLoginRequest) => Promise<LoginUserResponse>
+    loginUserOnService: (user: LoginRequestDTO) => Promise<LoginUserResponse>
 }

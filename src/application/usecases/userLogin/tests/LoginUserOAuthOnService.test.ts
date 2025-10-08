@@ -69,6 +69,7 @@ describe('LoginUserOAuthOnService UseCase', () => {
       const userRepositoryMock = makeUserRepositoryMock();  
 
       oAuthServiceMock.getAccessToken.mockResolvedValue("invalid-token");
+      oAuthServiceMock.getUserInfo.mockRejectedValue(new Error("Invalid token"));
 
       const useCase = new AuthenticateUserWithGoogle(oAuthServiceMock, userRepositoryMock);
 

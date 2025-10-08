@@ -1,7 +1,7 @@
 // src/application/usecases/oauth/authenticate-user-with-google.ts
 
 import { IOAuthService } from "../../../domain/repositories/user/IOAuthRepository";
-import { OAuthUserData } from "../../../domain/entities/user/user-data";
+import { OAuthUserDTO } from "../../dtos/auth/oauth.dto";
 import { Either, left, right } from "../../../shared/either";
 import { InvalidOAuthTokenError } from "../../../domain/entities/user/errors/invalid-oauth-token.error";
 import { LoginUserWithOAuth } from "./oauth-user";
@@ -16,7 +16,7 @@ export class AuthenticateUserWithGoogle implements LoginUserWithOAuth {
     this.userRepository = userRepository;
   }
 
-  async execute(authCode: string): Promise<Either<InvalidOAuthTokenError, OAuthUserData>> {
+  async execute(authCode: string): Promise<Either<InvalidOAuthTokenError, OAuthUserDTO>> {
     try {
       const token = await this.oAuthService.getAccessToken(authCode);
 
@@ -40,7 +40,7 @@ export class AuthenticateUserWithGoogle implements LoginUserWithOAuth {
 
       return right(userInfo);
     } catch (error) {
-      console.log(error)
+      
 
       return left(new InvalidOAuthTokenError());
     }

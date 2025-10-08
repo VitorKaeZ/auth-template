@@ -1,6 +1,6 @@
 // usecases/login/login-user-on-database.ts
 
-import { UserDataLoginRequest, UserDataLoginResponse } from "../../../domain/entities/user/user-data";
+import { LoginRequestDTO, LoginResponseDTO } from "../../dtos/auth/login.dto";
 import { Either, left, right } from "../../../shared/either";
 import { InvalidEmailError } from "../../../domain/entities/user/errors/invalid.email";
 import { InvalidPasswordError } from "../../../domain/entities/user/errors/invalid.password";
@@ -17,7 +17,7 @@ export class LoginUserOnService implements LoginUser {
     this.userRepository = userRepo;
   }
 
-  async loginUserOnService(userData: UserDataLoginRequest): Promise<Either<InvalidCredentialsError, UserDataLoginResponse>> {
+  async loginUserOnService(userData: LoginRequestDTO): Promise<Either<InvalidCredentialsError, LoginResponseDTO>> {
     const user = await this.userRepository.findUserByEmail(userData.email);
     
     if (!user || !user.password) {
@@ -38,7 +38,7 @@ export class LoginUserOnService implements LoginUser {
       expiresIn: "1h",
     });
 
-    const response: UserDataLoginResponse = {
+    const response: LoginResponseDTO = {
         id: user.id,
         email: user.email,
         firstname: user.firstname,

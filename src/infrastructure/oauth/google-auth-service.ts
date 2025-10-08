@@ -1,7 +1,7 @@
 // src/infrastructure/oauth/google-oauth-service.ts
 
 import { IOAuthService } from "../../domain/repositories/user/IOAuthRepository";
-import { OAuthUserData } from "../../domain/entities/user/user-data";
+import { OAuthUserDTO } from "../../application/dtos/auth/oauth.dto";
 import axios from "axios";
 
 export class GoogleOAuthService implements IOAuthService {
@@ -27,7 +27,7 @@ export class GoogleOAuthService implements IOAuthService {
     return response.data.access_token;
   }
 
-  async getUserInfo(token: string): Promise<OAuthUserData> {
+  async getUserInfo(token: string): Promise<OAuthUserDTO> {
     const response = await axios.get('https://www.googleapis.com/oauth2/v2/userinfo', {
       headers: {
         Authorization: `Bearer ${token}`,

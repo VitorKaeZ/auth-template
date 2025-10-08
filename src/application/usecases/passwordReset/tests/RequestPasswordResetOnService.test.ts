@@ -1,5 +1,5 @@
 import { addHours } from "date-fns"
-import { UserData } from "../../../../domain/entities/user/user-data"
+import { UserDTO } from "../../../dtos/user/user.dto"
 import { IPasswordResetRepository } from "../../../../domain/repositories/user/IPasswordResetRepository"
 import { IUserRepository } from "../../../../domain/repositories/user/IUserRepository"
 import { IEmailService } from "../../../services/IEmailService"
@@ -54,7 +54,10 @@ describe('RequestPasswordReset UseCase', () => {
   })
 
   it('must generate a password reset token and send an email with the link', async () => {
-    const validUser: UserData = {
+    const mockDate = new Date('2025-10-07T00:53:22.523Z');
+    jest.spyOn(global, 'Date').mockImplementation(() => mockDate);
+
+    const validUser: UserDTO = {
       id: "123456",
       firstname: 'John',
       lastname: 'Doe',

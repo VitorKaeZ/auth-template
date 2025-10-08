@@ -53,6 +53,9 @@ describe('PasswordReset UseCase', () => {
   })
 
   it('should return error if token has expired', async () => {
+    const mockDate = new Date('2025-10-07T00:47:46.440Z');
+    jest.spyOn(global, 'Date').mockImplementation(() => mockDate);
+
     const mockResetRequest = {
       userId: 'user123',
       expiresAt: new Date('2025-01-01T00:00:00Z'),

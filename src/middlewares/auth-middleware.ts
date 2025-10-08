@@ -45,7 +45,7 @@ export default function authenticateJwt(requiredRole?: string) {
       request.user = { id: decodedToken.userId, roles: decodedToken.roles };
 
     } catch (error) {
-      return reply.code(401).send({ error: 'Invalid token!', details: error.message });
+      return reply.code(401).send({ error: 'Invalid token!' });
     }
   };
 }

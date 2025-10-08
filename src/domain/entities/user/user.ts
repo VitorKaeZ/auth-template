@@ -1,4 +1,4 @@
-import { UserData } from "./user-data";
+import { UserDTO } from "../../../application/dtos/user/user.dto";
 import { Either, left, right } from "../../../shared/either";
 import { Email } from "./email";
 import { InvalidEmailError } from "./errors/invalid.email";
@@ -22,7 +22,7 @@ export class User {
         Object.freeze(this)
     }
 
-    static create (userData: UserData): Either<InvalidNameError | InvalidEmailError | InvalidPasswordError, User> {
+    static create (userData: UserDTO): Either<InvalidNameError | InvalidEmailError | InvalidPasswordError, User> {
         const firstnameOrError: Either<InvalidNameError, Name> = Name.create(userData.firstname)
         const lastnameOrError: Either<InvalidNameError, Name> = Name.create(userData.lastname)
         const emailOrError: Either<InvalidEmailError, Email> = Email.create(userData.email)

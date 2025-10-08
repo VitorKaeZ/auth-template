@@ -1,6 +1,9 @@
 import { PrismaClient, User } from '@prisma/client';
 import { IUserRepository } from '../../domain/repositories/user/IUserRepository';
-import { OAuthUserData, OAuthUserDataResponse, UserData, UserDataLoginResponse } from '../../domain/entities/user/user-data';
+import { OAuthUserDTO, OAuthUserResponseDTO } from '../../application/dtos/auth/oauth.dto';
+import { UserDTO } from '../../application/dtos/user/user.dto';
+import { LoginResponseDTO } from '../../application/dtos/auth/login.dto';
+
 
 const prisma = new PrismaClient();
 
@@ -9,12 +12,12 @@ export class PrismaUserRepository implements IUserRepository {
     return await prisma.user.count();
   }
 
-  async findAllUsers(): Promise<UserData[]> {
+  async findAllUsers(): Promise<UserDTO[]> {
     // Busca todos os usuários no banco de dados
     return await prisma.user.findMany();
   }
 
-  async findUserByEmail(email: string): Promise<UserData | null> {
+  async findUserByEmail(email: string): Promise<UserDTO | null> {
     // Busca um usuário pelo e-mail
     const result = await prisma.user.findUnique({
       where: {
@@ -32,7 +35,7 @@ export class PrismaUserRepository implements IUserRepository {
     return result
   }
 
-  async create(user: UserData, roleName: string = 'USER'): Promise<User> {
+  async create(user: UserDTO, roleName: string = 'USER'): Promise<User> {
     const roleToConnect = await prisma.role.findUnique({ where: { name: roleName } });
     if (!roleToConnect) {
       throw new Error(`Role ${roleName} not found`);
@@ -77,7 +80,7 @@ export class PrismaUserRepository implements IUserRepository {
     });
   }
 
-  async findUserByGoogleId(googleId: string): Promise<OAuthUserDataResponse | null> {
+  async findUserByGoogleId(googleId: string): Promise<OAuthUserResponseDTO | null> {
     const user = await prisma.user.findUnique({
       where: { googleId },
     });

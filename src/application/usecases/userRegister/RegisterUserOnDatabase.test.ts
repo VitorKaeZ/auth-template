@@ -2,7 +2,7 @@ import { IUserRepository } from '../../../domain/repositories/user/IUserReposito
 
 import bcrypt from 'bcryptjs'
 import { RegisterUserOnDatabase } from './register-user-on-database'
-import { UserData } from '../../../domain/entities/user/user-data'
+import { UserDTO } from '../../dtos/user/user.dto'
 import { EmailAlreadyExistsError } from '../errors/email-exists-error'
 import { InvalidNameError } from '../../../domain/entities/user/errors/invalid.name'
 import { InvalidEmailError } from '../../../domain/entities/user/errors/invalid.email'
@@ -29,7 +29,7 @@ describe('RegisterUserOnDatabase UseCase', () => {
     })
 
     it('should create the first user as ADMIN if no other users exist', async () => {
-        const userData: UserData = { firstname: 'Admin', lastname: 'User', email: 'admin@example.com', password: 'ValidPassword123' };
+        const userData: UserDTO = { firstname: 'Admin', lastname: 'User', email: 'admin@example.com', password: 'ValidPassword123' };
         const hashedUserData = { ...userData, password: 'hashed_password' };
         delete hashedUserData.roles; // Ensure roles property is not in the object passed to create
 
@@ -46,7 +46,7 @@ describe('RegisterUserOnDatabase UseCase', () => {
     });
 
     it('should create a subsequent user as USER if other users already exist', async () => {
-        const userData: UserData = { firstname: 'Normal', lastname: 'User', email: 'user@example.com', password: 'ValidPassword123' };
+        const userData: UserDTO = { firstname: 'Normal', lastname: 'User', email: 'user@example.com', password: 'ValidPassword123' };
         const hashedUserData = { ...userData, password: 'hashed_password' };
         delete hashedUserData.roles; // Ensure roles property is not in the object passed to create
 
@@ -64,7 +64,7 @@ describe('RegisterUserOnDatabase UseCase', () => {
     });
 
     it('should return an error when trying to register a user with an existing email', async () => {
-        const userData: UserData = {
+        const userData: UserDTO = {
             firstname: 'John',
             lastname: 'Doe',
             email: 'john.doe@example.com',
@@ -82,7 +82,7 @@ describe('RegisterUserOnDatabase UseCase', () => {
     })
 
     it('should return invalid name validation error', async () => {
-        const invalidUserData: UserData = {
+        const invalidUserData: UserDTO = {
             firstname: 'J',
             lastname: 'Doe',
             email: 'john.doe@example.com',
@@ -97,8 +97,8 @@ describe('RegisterUserOnDatabase UseCase', () => {
         expect(result.value).toBeInstanceOf(InvalidNameError)
     })
 
-    it('should return invalid email validation error', async () => {
-        const invalidUserData: UserData = {
+it('should return invalid email validation error', async () => {
+        const invalidUserData: UserDTO = {
             firstname: 'John',
             lastname: 'Doe',
             email: 'invalid-email',
@@ -113,7 +113,7 @@ describe('RegisterUserOnDatabase UseCase', () => {
     })
 
     it('should return invalid password validation error', async () => {
-        const invalidUserData: UserData = {
+        const invalidUserData: UserDTO = {
             firstname: 'John',
             lastname: 'Doe',
             email: 'john.doe@example.com',

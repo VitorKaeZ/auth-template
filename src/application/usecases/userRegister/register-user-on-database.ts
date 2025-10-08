@@ -1,4 +1,4 @@
-import { UserData } from "../../../domain/entities/user/user-data";
+import { UserDTO } from "../../dtos/user/user.dto";
 import { User } from "../../../domain/entities/user/user";
 import { Either, left, right } from "../../../shared/either";
 import { InvalidNameError } from "../../../domain/entities/user/errors/invalid.name";
@@ -9,7 +9,7 @@ import bcrypt from "bcryptjs"
 import { RegisterUserResponse, RegisterUser } from "./register-user";
 import { IUserRepository } from "../../../domain/repositories/user/IUserRepository";
 import { EmailAlreadyExistsError } from "../errors/email-exists-error";
-import { UserDataCreateResponse } from "../../../domain/entities/user/user-data";
+import { CreateUserResponseDTO } from "../../dtos/user/create-user.dto";
 
 
 export class RegisterUserOnDatabase implements RegisterUser{
@@ -18,7 +18,7 @@ export class RegisterUserOnDatabase implements RegisterUser{
         this.userRepository = userRepo
     }
 
-    async registerUserOnDatabase(userData: UserData): Promise<RegisterUserResponse> {
+    async registerUserOnDatabase(userData: UserDTO): Promise<RegisterUserResponse> {
         const useOrError: Either<InvalidNameError | InvalidEmailError | InvalidPasswordError, User> = User.create(userData)
         if (useOrError.isLeft()) {
             return left(useOrError.value)
@@ -49,7 +49,7 @@ export class RegisterUserOnDatabase implements RegisterUser{
             await this.userRepository.create(userDataWithHashedPassword);
         }
         
-        const response: UserDataCreateResponse = {
+        const response: CreateUserResponseDTO = {
             email : user.email.value,
             firstname : user.firstname.value,
             lastname : user.lastname.value

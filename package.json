@@ -33,6 +33,7 @@
   "dependencies": {
     "@fastify/cors": "^11.1.0",
     "@fastify/oauth2": "^8.1.2",
+    "@fastify/rate-limit": "^10.3.0",
     "axios": "^1.12.2",
     "bcryptjs": "^3.0.2",
     "date-fns": "^4.1.0",

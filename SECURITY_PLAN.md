@@ -52,7 +52,7 @@ Refere-se à proteção de dados como senhas e tokens, em trânsito (na rede) e 
 
 **O que pode ser melhorado:**
 - 🚨 **Falta de HTTPS:** A aplicação roda em HTTP, o que expõe todo o tráfego (senhas, tokens) a interceptação na rede.
-    - **Solução (Nível de Infraestrutura):** Em produção, a aplicação **obrigatoriamente** deve rodar por trás de um "reverse proxy" (como Nginx) que gerencie o certificado SSL/TLS e force todo o tráfego para HTTPS.
+    - **Solução (Nível de Infraestrutura):** Em produção, a aplicação **obrigatoriamente** deve rodar por trás de um "reverse proxy" (como Nginx) que gerencie o certificado SSL/TLS e force todo o tráfego para HTTPS. O proxy reverso deve ser configurado para redirecionar permanentemente (301) todo o tráfego HTTP para HTTPS.
 
 ### **4. Security Misconfiguration (Más Configurações de Segurança)**
 
@@ -69,7 +69,7 @@ Erros comuns que vêm de configurações padrão ou mensagens de erro muito deta
 
 ### **Checklist de Ação (Próximos Passos)**
 
-- [ ] **Implementar Rate Limiting** no endpoint de login.
-- [ ] **Revisar e Garantir a Segurança do Fluxo de Redefinição de Senha** (token aleatório, de uso único e com expiração curta).
+- [x] **Implementar Rate Limiting** no endpoint de login.
+- [x] **Revisar e Garantir a Segurança do Fluxo de Redefinição de Senha** (revisão concluída, implementação segura).
 - [ ] **Planejar a infraestrutura de produção para usar HTTPS.**
-- [ ] **Configurar o CORS** para permitir apenas o domínio de front-end em produção.
+- [x] **Configurar o CORS** para permitir apenas o domínio de front-end em produção.

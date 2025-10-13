@@ -28,7 +28,16 @@ export function createHttpServer(): FastifyInstance {
     const server = fastify()
 
 
-     server.register(cors)
+     const corsOptions = {
+        origin: process.env.NODE_ENV === 'production' ? process.env.FRONTEND_URL : '*',
+     }
+
+     server.register(cors, corsOptions)
+
+     server.register(import('@fastify/rate-limit'), {
+        max: 100,
+        timeWindow: '15 minutes'
+      })
 
      server.register(routes)
 

@@ -4,7 +4,6 @@ import { Either, left, right } from "../../../shared/either";
 import { InvalidNameError } from "../../../domain/entities/user/errors/invalid.name";
 import { InvalidEmailError } from "../../../domain/entities/user/errors/invalid.email";
 import { InvalidPasswordError } from "../../../domain/entities/user/errors/invalid.password";
-import { database } from "../../../database/prisma-client";
 import bcrypt from "bcryptjs"
 import { RegisterUserResponse, RegisterUser } from "./register-user";
 import { IUserRepository } from "../../../domain/repositories/user/IUserRepository";
@@ -50,9 +49,7 @@ export class RegisterUserOnDatabase implements RegisterUser{
         }
         
         const response: CreateUserResponseDTO = {
-            email : user.email.value,
-            firstname : user.firstname.value,
-            lastname : user.lastname.value
+            message: "User created successfully"
         }
     
         return right(response)

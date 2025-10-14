@@ -5,14 +5,14 @@ export class NodeMailerService implements IEmailService {
     private transporter = nodemailer.createTransport({
         service: "gmail",
         auth: {
-            user: process.env.EMAIL_USER,
-            pass: process.env.EMAIL_PASSWORD,
+            user: process.env.MAIL_SERVICE_USER,
+            pass: process.env.MAIL_SERVICE_PASSWORD,
         }
     })
 
     async sendEmail(to: string, subject: string, body: string): Promise<void> {
         await this.transporter.sendMail({
-            from: process.env.EMAIL_USER,
+            from: process.env.MAIL_SERVICE_USER,
             to,
             subject,
             text: body,

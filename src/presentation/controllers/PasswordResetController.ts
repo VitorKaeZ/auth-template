@@ -30,7 +30,7 @@ export class PasswordResetController {
                 return unauthorized(passwordResetResponse.value)
             }
             
-            return ok(passwordResetResponse)
+            return ok(passwordResetResponse.value)
         } catch (error) {
             return serverError('An internal server error occurred.')
         }

@@ -4,9 +4,6 @@ export interface LoginRequestDTO {
 }
 
 export interface LoginResponseDTO {
-    id: string | undefined,
-    email: string,
-    firstname: string,
-    lastname: string,
+    message: string,
     token: string,
 }

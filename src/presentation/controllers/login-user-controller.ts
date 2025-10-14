@@ -28,7 +28,7 @@ export class LoginUserController {
                 return unauthorized(loginUserResponse.value)
             }
             
-            return ok(loginUserResponse)
+            return ok(loginUserResponse.value)
         } catch (error) {
             return serverError('An internal server error occurred.')
         }

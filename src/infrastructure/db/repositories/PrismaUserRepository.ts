@@ -14,7 +14,15 @@ export class PrismaUserRepository implements IUserRepository {
 
   async findAllUsers(): Promise<UserDTO[]> {
     // Busca todos os usuários no banco de dados
-    return await prisma.user.findMany();
+    return await prisma.user.findMany({
+      include: {
+        roles: {
+          include: {
+            role: true,
+          },
+        },
+      },
+    });
   }
 
   async findUserByEmail(email: string): Promise<UserDTO | null> {

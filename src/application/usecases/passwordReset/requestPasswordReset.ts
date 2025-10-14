@@ -5,8 +5,11 @@ import { InvalidPasswordError } from '../../../domain/entities/user/errors/inval
 export interface RequestPasswordResetInterface {
     email: string, 
 }
+export interface RequestPasswordResetInterfaceResponse {
+    message: string, 
+}
 
-export type ReqPasswordResetResponse = Either<InvalidEmailError | InvalidPasswordError, RequestPasswordResetInterface>
+export type ReqPasswordResetResponse = Either<InvalidEmailError | InvalidPasswordError, RequestPasswordResetInterfaceResponse>
 
 
 export interface RequestPasswordReset {

@@ -6,7 +6,7 @@ import { PasswordReset, PasswordResetInterface } from "./passwordReset";
 import { addHours, isAfter } from "date-fns";
 import bcrypt from "bcryptjs"
 import { IEmailService } from "../../services/IEmailService";
-import { RequestPasswordResetInterface } from "./requestPasswordReset";
+import { RequestPasswordResetInterface, RequestPasswordResetInterfaceResponse } from "./requestPasswordReset";
 import crypto from "crypto";
 
 export class RequestPasswordReset implements RequestPasswordReset {
@@ -21,7 +21,7 @@ export class RequestPasswordReset implements RequestPasswordReset {
   }
 
 
-  async reqPasswordResetOnService({ email }: RequestPasswordResetInterface): Promise<Either<InvalidOrExpiredTokenError, RequestPasswordResetInterface>> {
+  async reqPasswordResetOnService({ email }: RequestPasswordResetInterface): Promise<Either<InvalidOrExpiredTokenError, RequestPasswordResetInterfaceResponse>> {
     const user = await this.userRepository.findUserByEmail(email)
 
     if (!user || !user.id) {
@@ -38,6 +38,6 @@ export class RequestPasswordReset implements RequestPasswordReset {
 
     await this.emailService.sendEmail(user.email, "Password Reset", `Click Here: ${resetLink}`)
 
-    return right({ email })
+    return right({ message: 'Password reset request sent successfully'})
   }
 }

@@ -39,10 +39,7 @@ export class LoginUserOnService implements LoginUser {
     });
 
     const response: LoginResponseDTO = {
-        id: user.id,
-        email: user.email,
-        firstname: user.firstname,
-        lastname: user.firstname,
+        message: "User logged in successfully",
         token
     };
 

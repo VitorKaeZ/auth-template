@@ -1,6 +1,6 @@
-import { LoginUserController } from "../../../interfaces/controllers/login-user-controller"
-import { PrismaUserRepository } from "../../repositories/PrismaUserRepository"
-import { LoginUserOnService } from "../../../application/usecases/userLogin/login-user-on-service"
+import { LoginUserOnService } from "../../application/usecases/userLogin/login-user-on-service"
+import { PrismaUserRepository } from "../../infrastructure/db/repositories/PrismaUserRepository"
+import { LoginUserController } from "../controllers/login-user-controller"
 
 
 export const makeLoginUserController = (): LoginUserController => {

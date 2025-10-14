@@ -1,9 +1,5 @@
 import fastify from "fastify"
-import { routes } from "./infrastructure/main/routes/routes";
-import { userRoutes } from "./infrastructure/main/routes/user.routes";
-import fastifyOauth2, { FastifyOAuth2Options } from '@fastify/oauth2';
-import { oAuthRoutes } from "./infrastructure/main/routes/oAuth.routes";
-import { createHttpServer } from "./infrastructure/main/http/server";
+import { createHttpServer } from "./presentation/http/server";
 
 
 const app = fastify({ logger: false })

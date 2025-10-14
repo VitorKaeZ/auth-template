@@ -1,5 +1,5 @@
 import { PrismaClient } from "@prisma/client";
-import { IPasswordResetRepository } from "../../domain/repositories/user/IPasswordResetRepository";
+import { IPasswordResetRepository } from "../../../domain/repositories/user/IPasswordResetRepository";
 
 const prisma = new PrismaClient();
 

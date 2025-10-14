@@ -1,8 +1,8 @@
 import { PrismaClient, User } from '@prisma/client';
-import { IUserRepository } from '../../domain/repositories/user/IUserRepository';
-import { OAuthUserDTO, OAuthUserResponseDTO } from '../../application/dtos/auth/oauth.dto';
-import { UserDTO } from '../../application/dtos/user/user.dto';
-import { LoginResponseDTO } from '../../application/dtos/auth/login.dto';
+import { IUserRepository } from '../../../domain/repositories/user/IUserRepository';
+import { OAuthUserDTO, OAuthUserResponseDTO } from '../../../application/dtos/auth/oauth.dto';
+import { UserDTO } from '../../../application/dtos/user/user.dto';
+import { LoginResponseDTO } from '../../../application/dtos/auth/login.dto';
 
 
 const prisma = new PrismaClient();

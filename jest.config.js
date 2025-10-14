@@ -6,7 +6,7 @@ module.exports = {
   testEnvironment: 'node',
 
   // Caminho para os diretórios de testes
-  roots: ['<rootDir>/src'],
+  roots: ['<rootDir>/tests'],
 
   // Ignorar arquivos dentro do diretório 'dist' (gerado pelo TypeScript após build)
   modulePathIgnorePatterns: ['<rootDir>/dist/'],

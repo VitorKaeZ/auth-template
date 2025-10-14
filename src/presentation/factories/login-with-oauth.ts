@@ -1,10 +1,7 @@
-import { LoginUserController } from "../../../interfaces/controllers/login-user-controller"
-import { PrismaUserRepository } from "../../repositories/PrismaUserRepository"
-import { LoginUserOnService } from "../../../application/usecases/userLogin/login-user-on-service"
-import { GoogleOAuthService } from "../../oauth/google-auth-service";
-import { AuthenticateUserWithGoogle } from "../../../application/usecases/userLogin/login-user-with-oauth-on-service";
-import { AuthenticateUserWithGoogleController } from "../../../interfaces/controllers/authenticate-user-with-google.controller";
-import "dotenv/config"
+import { AuthenticateUserWithGoogle } from "../../application/usecases/userLogin/login-user-with-oauth-on-service";
+import { PrismaUserRepository } from "../../infrastructure/db/repositories/PrismaUserRepository";
+import { GoogleOAuthService } from "../../infrastructure/gateways/oauth/google-auth-service";
+import { AuthenticateUserWithGoogleController } from "../controllers/authenticate-user-with-google.controller";
 
 
 export const makeLoginUserWithOAuthController = (): AuthenticateUserWithGoogleController => {

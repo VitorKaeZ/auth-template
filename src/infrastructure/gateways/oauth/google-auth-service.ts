@@ -1,8 +1,8 @@
 // src/infrastructure/oauth/google-oauth-service.ts
 
-import { IOAuthService } from "../../domain/repositories/user/IOAuthRepository";
-import { OAuthUserDTO } from "../../application/dtos/auth/oauth.dto";
 import axios from "axios";
+import { OAuthUserDTO } from "../../../application/dtos/auth/oauth.dto";
+import { IOAuthService } from "../../../domain/repositories/user/IOAuthRepository";
 
 export class GoogleOAuthService implements IOAuthService {
   private readonly clientId: string;
